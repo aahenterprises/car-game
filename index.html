@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Night Drive Pro | AAH Enterprises</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loader"><div class="loader-logo">AAH</div><p>Arcade</p><div class="bar"><span></span></div></div>
+
+<header><div class="logo">AAH Arcade</div></header>
+
+<main>
+    <div class="play"><div class="stage" id="stage" data-bs="1">
+        <canvas id="game" width="600" height="800" aria-label="Night Drive Pro car game"></canvas>
+
+        <div id="topbar" class="topbar hidden">
+            <button id="menuBtn" class="iconbtn" type="button" aria-label="Game menu"><i></i><i></i><i></i></button>
+            <div class="stats">
+                <div><small>Score</small><b id="sScore">0</b></div>
+                <div><small>Level</small><b id="sLevel">1</b></div>
+                <div><small id="spdUnit">km/h</small><b id="sSpeed">0</b></div>
+                <div><small>Lives</small><b id="sLives" class="lives"></b></div>
+            </div>
+        </div>
+
+        <div id="gameMenu" class="dropdown hidden">
+            <button id="gmResume" class="mbtn c primary" type="button">Resume</button>
+            <button id="gmCar" class="mbtn c" type="button">Change car</button>
+            <button id="gmSettings" class="mbtn c" type="button">Settings</button>
+            <button id="gmQuit" class="mbtn c" type="button">Quit</button>
+        </div>
+
+        <div id="ctrlLeft" class="ctrl ctrl-left">
+            <div class="sigrow">
+                <button id="btnSigL" class="ctl sig" type="button" aria-label="Left indicator">&#9664;</button>
+                <button id="btnSigR" class="ctl sig" type="button" aria-label="Right indicator">&#9654;</button>
+            </div>
+            <div id="wheel" class="wheel" aria-label="Steering wheel">
+                <svg id="wheelSvg" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="9"/>
+                    <circle cx="50" cy="50" r="10" fill="currentColor"/>
+                    <path d="M50 50 L12 50 M50 50 L88 50 M50 50 L50 88" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                    <rect x="46" y="6" width="8" height="14" rx="3" fill="#f97316"/>
+                </svg>
+            </div>
+            <div id="arrows" class="arrows hidden">
+                <button id="btnLeft" class="ctl" type="button" aria-label="Steer left">&#9664;</button>
+                <button id="btnRight" class="ctl" type="button" aria-label="Steer right">&#9654;</button>
+            </div>
+        </div>
+
+        <div id="ctrlRight" class="ctrl ctrl-right">
+            <div class="gearcol">
+                <button id="btnGUp" class="ctl gbtn" type="button" aria-label="Gear up">&#9650;</button>
+                <div class="badge"><b id="gearNum">1</b><small id="gearMode">AUTO</small></div>
+                <button id="btnGDn" class="ctl gbtn" type="button" aria-label="Gear down">&#9660;</button>
+            </div>
+            <div class="actcol">
+                <button id="btnNitro" class="ctl act nitro" type="button">NITRO</button>
+                <button id="btnHorn" class="ctl act" type="button">HORN</button>
+                <button id="btnBrake" class="ctl act brake" type="button">BRAKE</button>
+            </div>
+        </div>
+
+        <div id="overlay" class="overlay">
+            <div id="pMain" class="panel">
+                <div class="brand">NIGHT</div>
+                <h2>Drive <span class="grad">Pro</span></h2>
+                <p id="menuBest" class="best">Best score: 0</p>
+                <button id="mStart" class="mbtn c primary" type="button">&#9654; Start game</button>
+                <button id="mLevel" class="mbtn" type="button"><span>Select level</span><em id="lvLabel">Level 1</em></button>
+                <button id="mCar" class="mbtn" type="button"><span>Select car</span><em id="carLabel">Ember</em></button>
+                <button id="mSettings" class="mbtn c" type="button">Settings</button>
+                <button id="mExit" class="mbtn c" type="button">Exit</button>
+            </div>
+
+            <div id="pLevel" class="panel hidden">
+                <h2>Select level</h2>
+                <div id="levelGrid" class="grid3"></div>
+                <p id="lvName" class="note"></p>
+                <button id="lvBack" class="mbtn c" type="button">&#9664; Back</button>
+            </div>
+
+            <div id="pCar" class="panel hidden">
+                <h2>Select car</h2>
+                <div id="carGrid" class="grid2"></div>
+                <p class="note"><span class="g">Green</span> top speed &bull; <span class="b">Blue</span> handling</p>
+                <button id="carBack" class="mbtn c" type="button">&#9664; Back</button>
+            </div>
+
+            <div id="pSettings" class="panel hidden">
+                <h2>Settings</h2>
+                <div id="setList" class="setlist"></div>
+                <button id="sFull" class="mbtn sm" type="button"><span>Fullscreen</span><em id="sFullV">Off</em></button>
+                <button id="sBack" class="mbtn c" type="button">&#9664; Back</button>
+            </div>
+
+            <div id="pExit" class="panel hidden">
+                <h2>Exit game?</h2><p>Are you sure you want to leave?</p>
+                <button id="exYes" class="mbtn c primary" type="button">Yes, exit</button>
+                <button id="exNo" class="mbtn c" type="button">No, stay</button>
+            </div>
+
+            <div id="pBye" class="panel hidden">
+                <div class="brand">AAH</div><h2>Thanks for playing!</h2><p>Drive safe, racer.</p>
+                <button id="byeBtn" class="mbtn c primary" type="button">Play again</button>
+            </div>
+
+            <div id="pMsg" class="panel hidden">
+                <h2 id="ovTitle">Crashed!</h2><p id="ovText"></p>
+                <button id="ovBtn" class="mbtn c primary" type="button">Race again</button>
+                <button id="ovMenu" class="mbtn c" type="button">Main menu</button>
+            </div>
+        </div>
+    </div></div>
+
+    <p class="help">
+        <b>Steer:</b> wheel, arrow keys or A / D. <b>Gear:</b> E / W up, Q down (Manual gearbox). <b>Brake:</b> S or Space.<br>
+        <span class="c">NITRO</span> Shift or N &bull; <b>Horn:</b> H &bull; <b>Indicators:</b> Z (left), C (right) &bull; <b>Menu:</b> P or Esc<br>
+        In <b>Strict</b> rules: signal before changing lanes and stay under the speed limit.
+    </p>
+</main>
+
+<footer>&copy; 2026 AAH Enterprises &bull; Founder &amp; CEO: Muhammad Awais Raza</footer>
+<script src="script.js"></script>
+</body>
+</html>
